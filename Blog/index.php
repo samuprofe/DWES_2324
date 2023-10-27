@@ -54,7 +54,6 @@ $mensajes = $mensajeDAO->getAll();
 </header>
 
 <main>
-    
     <?php foreach ($mensajes as $mensaje): ?>
         <div class="mensaje">
            <h4 class="titulo">
@@ -64,6 +63,8 @@ $mensajes = $mensajeDAO->getAll();
            <p class="texto"><?= $mensaje->getTexto() ?></p>
         </div>
     <?php endforeach; ?>
+
+    <a href="insertar_mensaje.php">Nuevo mensaje</a>
 </main>    
 </body>
 </html>

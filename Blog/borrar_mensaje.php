@@ -15,4 +15,4 @@ $mensajesDAO = new MensajesDAO($conn);
 $idMensaje = htmlspecialchars($_GET['id']);
 $mensajesDAO->delete($idMensaje);
 
-//header('location: index.php');
+header('location: index.php');
