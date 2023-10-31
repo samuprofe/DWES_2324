@@ -6,31 +6,95 @@ class Mensaje {
     private $idUsuario;
     private $fecha;
 
-    // Métodos para acceder a las propiedades
-    public function getId() {
+
+    /**
+     * Get the value of id
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getTitulo() {
+    /**
+     * Set the value of id
+     */
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of titulo
+     */
+    public function getTitulo()
+    {
         return $this->titulo;
     }
 
-    public function getTexto() {
+    /**
+     * Set the value of titulo
+     */
+    public function setTitulo($titulo): self
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of texto
+     */
+    public function getTexto()
+    {
         return $this->texto;
     }
 
-    public function getIdUsuario() {
+    /**
+     * Set the value of texto
+     */
+    public function setTexto($texto): self
+    {
+        $this->texto = $texto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idUsuario
+     */
+    public function getIdUsuario()
+    {
         return $this->idUsuario;
     }
 
-    public function getFecha() {
+    /**
+     * Set the value of idUsuario
+     */
+    public function setIdUsuario($idUsuario): self
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fecha
+     */
+    public function getFecha()
+    {
         return $this->fecha;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
+    /**
+     * Set the value of fecha
+     */
+    public function setFecha($fecha): self
+    {
+        $this->fecha = $fecha;
 
-    // Otros métodos que puedas necesitar
+        return $this;
+    }
 }
 ?>

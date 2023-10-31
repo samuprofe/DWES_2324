@@ -1,7 +1,7 @@
 <?php
 
 class MensajesDAO {
-    private $conn;
+    private mysqli $conn;
 
     public function __construct($conn) {
         $this->conn = $conn;
@@ -75,6 +75,26 @@ class MensajesDAO {
             return false;
         }
         
+    }
+
+    /**
+     * Inserta en la base de datos el mensaje que recibe como parámetro
+     * @return idMensaje Devuelve el id autonumérico que se le ha asignado al mensaje o false en caso de error
+     */
+    function insert(Mensaje $mensaje): int|bool{
+        if(!$stmt = $this->conn->prepare("INSERT INTO mensajes (titulo, texto, idUsuario) VALUES (?,?,?)")){
+            die("Error al preparar la consulta insert: " . $this->conn->error );
+        }
+        $titulo = $mensaje->getTitulo();
+        $texto = $mensaje->getTexto();
+        $idUsuario = $mensaje->getIdUsuario();
+        $stmt->bind_param('ssi',$titulo, $texto, $idUsuario);
+        if($stmt->execute()){
+            return $stmt->insert_id;
+        }
+        else{
+            return false;
+        }
     }
 }
 ?>
