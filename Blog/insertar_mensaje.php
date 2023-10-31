@@ -2,6 +2,8 @@
 require_once 'modelos/ConnexionDB.php';
 require_once 'modelos/Mensaje.php';
 require_once 'modelos/MensajesDAO.php';
+require_once 'modelos/Usuario.php';
+require_once 'modelos/UsuariosDAO.php';
 
 $error ='';
 
@@ -9,7 +11,7 @@ $error ='';
 $connexionDB = new ConnexionDB('root','','localhost','blog');
 $conn = $connexionDB->getConnexion();
 
-$usuariosDAO = new UsuariosDAO();
+$usuariosDAO = new UsuariosDAO($conn);
 $usuarios = $usuariosDAO->getAll();
 
 
@@ -18,6 +20,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     //Limpiamos los datos que vienen del usuario
     $titulo = htmlspecialchars($_POST['titulo']);
     $texto =  htmlspecialchars($_POST['texto']);
+    $idUsuario = htmlspecialchars($_POST['idUsuario']);
 
     //Validamos los datos
     if(empty($titulo) || empty($texto)){
@@ -29,7 +32,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $mensaje = new Mensaje();
         $mensaje->setTitulo($titulo);
         $mensaje->setTexto($texto);
-        $mensaje->setIdUsuario(1);
+        $mensaje->setIdUsuario($idUsuario);
         $mensajesDAO->insert($mensaje);
         header('location: index.php');
         die();
@@ -51,11 +54,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <form action="insertar_mensaje.php" method="post">
         <input type="text" name="titulo" placeholder="Titulo"><br>
         <textarea name="texto" placeholder="Texto"></textarea><br>
-        <select>
+        <select name="idUsuario">
             <?php foreach($usuarios as $usuario): ?>
-                <option ><?= $usuario->getEmail() ?></option>
+                <option value="<?= $usuario->getId() ?>"><?= $usuario->getEmail() ?></option>
             <?php endforeach; ?>
-        </select>
+        </select><br>
         <input type="submit">
     </form>
 </body>

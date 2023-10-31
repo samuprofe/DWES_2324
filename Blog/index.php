@@ -38,6 +38,11 @@ $mensajes = $mensajeDAO->getAll();
         right: 5px;
         position: absolute;
     }
+    .icono_editar{
+        top: 5px;
+        right: 25px;
+        position: absolute;
+    }
     .color_gris:hover{
         color:black;
     }
@@ -58,8 +63,10 @@ $mensajes = $mensajeDAO->getAll();
         <div class="mensaje">
            <h4 class="titulo">
             <a href="ver_mensaje.php?id=<?=$mensaje->getId()?>"><?= $mensaje->getTitulo() ?></a>
-            <span class="icono_borrar"><a href="borrar_mensaje.php?id=<?=$mensaje->getId()?>"><i class="fa-solid fa-trash color_gris"></i></a></span>
             </h4>
+            <span class="icono_borrar"><a href="borrar_mensaje.php?id=<?=$mensaje->getId()?>"><i class="fa-solid fa-trash color_gris"></i></a></span>
+            <span class="icono_editar"><a href="editar_mensaje.php?id=<?=$mensaje->getId()?>"><i class="fa-solid fa-pen-to-square color_gris" "></i></a></span>
+            
            <p class="texto"><?= $mensaje->getTexto() ?></p>
         </div>
     <?php endforeach; ?>

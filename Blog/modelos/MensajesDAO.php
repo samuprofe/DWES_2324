@@ -7,7 +7,10 @@ class MensajesDAO {
         $this->conn = $conn;
     }
 
-    
+    /**
+     * Obtiene un mensaje de la BD en función del id pasado
+     * @return Mensaje Devuelve el objeto Mensaje o null si no lo encuentra
+     */
     public function getById($id):Mensaje|null {
         //$this->conn->prepare() devuleve un objeto de la clase mysqli_stmt
         if(!$stmt = $this->conn->prepare("SELECT * FROM mensajes WHERE id = ?"))
@@ -33,6 +36,7 @@ class MensajesDAO {
 
     /**
      * Obtiene todos los mensajes de la tabla mensajes
+     * @return array Devuelve un array de objetos Mensaje
      */
     public function getAll():array {
         if(!$stmt = $this->conn->prepare("SELECT * FROM mensajes"))
