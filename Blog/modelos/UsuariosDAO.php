@@ -11,9 +11,27 @@ class UsuariosDAO {
      * Obtiene un usuario de la BD en función del id
      * @return Usuario Devuelve un Objeto de la clase Usuario
      */
-    public function getById($id):Usuario|null {
-        return null;
-    }
+    public function getByEmail($email):Usuario|null {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE email = ?"))
+        {
+            echo "Error en la SQL: " . $this->conn->error;
+        }
+        //Asociar las variables a las interrogaciones(parámetros)
+        $stmt->bind_param('s',$email);
+        //Ejecutamos la SQL
+        $stmt->execute();
+        //Obtener el objeto mysql_result
+        $result = $stmt->get_result();
+
+        //Si ha encontrado algún resultado devolvemos un objeto de la clase Mensaje, sino null
+        if($result->num_rows == 1){
+            $usuario = $result->fetch_object(Usuario::class);
+            return $usuario;
+        }
+        else{
+            return null;
+        }
+    } 
 
     /**
      * Obtiene todos los usuarios de la tabla mensajes
@@ -38,19 +56,23 @@ class UsuariosDAO {
 
 
     /**
-     * borra el usuario de la tabla usuarios del id pasado por parámetro
-     * @return true si ha borrado el usuario y false si no lo ha borrado (por que no existia)
-     */
-    function delete($id):bool{
-        return false;
-    }
-
-    /**
      * Inserta en la base de datos el usuario que recibe como parámetro
      * @return idUsuario Devuelve el id autonumérico que se le ha asignado al usuario o false en caso de error
      */
     function insert(Usuario $usuario): int|bool{
-        return false;
+        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (email, password, foto) VALUES (?,?,?)")){
+            die("Error al preparar la consulta insert: " . $this->conn->error );
+        }
+        $email = $usuario->getEmail();
+        $password = $usuario->getPassword();
+        $foto = $usuario->getFoto();
+        $stmt->bind_param('ssi',$email, $password, $foto);
+        if($stmt->execute()){
+            return $stmt->insert_id;
+        }
+        else{
+            return false;
+        }
     }
 }
 ?>
