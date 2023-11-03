@@ -9,7 +9,7 @@ class UsuariosDAO {
 
     /**
      * Obtiene un usuario de la BD en función del id
-     * @return Usuario Devuelve un Objeto de la clase Usuario
+     * @return Usuario Devuelve un Objeto de la clase Usuario o null si no existe
      */
     public function getByEmail($email):Usuario|null {
         if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE email = ?"))
@@ -24,7 +24,7 @@ class UsuariosDAO {
         $result = $stmt->get_result();
 
         //Si ha encontrado algún resultado devolvemos un objeto de la clase Mensaje, sino null
-        if($result->num_rows == 1){
+        if($result->num_rows >= 1){
             $usuario = $result->fetch_object(Usuario::class);
             return $usuario;
         }
@@ -66,7 +66,7 @@ class UsuariosDAO {
         $email = $usuario->getEmail();
         $password = $usuario->getPassword();
         $foto = $usuario->getFoto();
-        $stmt->bind_param('ssi',$email, $password, $foto);
+        $stmt->bind_param('sss',$email, $password, $foto);
         if($stmt->execute()){
             return $stmt->insert_id;
         }

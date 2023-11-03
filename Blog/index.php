@@ -56,6 +56,13 @@ $mensajes = $mensajeDAO->getAll();
 <body>
 <header>
     <h1>Todos los mensajes</h1>
+    <form action="login.php" method="post">
+        <input type="email" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
+        <input type="submit" value="login">
+        <a href="registrar.php">registrar</a>
+    </form>
+    
 </header>
 
 <main>
