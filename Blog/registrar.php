@@ -49,20 +49,23 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         }
         
 
-        //Insertamos en la BD
-        
-        $usuario = new Usuario();
-        $usuario->setEmail($email);
-        //encriptamos el password
-        $passwordCifrado = password_hash($password,PASSWORD_DEFAULT);
-        $usuario->setPassword($passwordCifrado);
-        $usuario->setFoto($foto);
+        if($error == '')    //Si no hay error
+        {
+            //Insertamos en la BD
+            
+            $usuario = new Usuario();
+            $usuario->setEmail($email);
+            //encriptamos el password
+            $passwordCifrado = password_hash($password,PASSWORD_DEFAULT);
+            $usuario->setPassword($passwordCifrado);
+            $usuario->setFoto($foto);
 
-        if($usuariosDAO->insert($usuario)){
-            header("location: index.php");
-            die();
-        }else{
-            $error = "No se ha podido insertar el usuario";
+            if($usuariosDAO->insert($usuario)){
+                header("location: index.php");
+                die();
+            }else{
+                $error = "No se ha podido insertar el usuario";
+            }
         }
     }
     
