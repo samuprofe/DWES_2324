@@ -1,6 +1,5 @@
 <?php 
 session_start();
-
-unset($_SESSION['email']);
-unset($_SESSION['foto']);
+session_unset();    //Borra todas las variables de sesión
+setcookie('sid','',0,'/');
 header('location: index.php');

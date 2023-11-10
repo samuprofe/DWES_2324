@@ -5,6 +5,8 @@ class Usuario {
     private $email;
     private $password;
     private $foto;
+    private $sid;
+    
 
     /**
      * Get the value of id
@@ -74,6 +76,24 @@ class Usuario {
     public function setFoto($foto): self
     {
         $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sid
+     */
+    public function getSid()
+    {
+        return $this->sid;
+    }
+
+    /**
+     * Set the value of sid
+     */
+    public function setSid($sid): self
+    {
+        $this->sid = $sid;
 
         return $this;
     }

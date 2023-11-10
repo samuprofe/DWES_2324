@@ -1,9 +1,22 @@
 <?php 
+session_start();
+
+require_once 'funciones.php';
 require_once 'modelos/ConnexionDB.php';
 require_once 'modelos/Mensaje.php';
 require_once 'modelos/MensajesDAO.php';
 require_once 'modelos/Usuario.php';
 require_once 'modelos/UsuariosDAO.php';
+
+//¡¡Página privada!! Esto impide que puedan ver esta página
+//si no han iniciado sesión
+if(!isset($_SESSION['email'])){
+    header("location: index.php");
+    guardarMensaje("No puedes insertar mensajes si no estás indentificado");
+    die();
+}
+
+
 
 $error ='';
 
@@ -20,7 +33,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     //Limpiamos los datos que vienen del usuario
     $titulo = htmlspecialchars($_POST['titulo']);
     $texto =  htmlspecialchars($_POST['texto']);
-    $idUsuario = htmlspecialchars($_POST['idUsuario']);
+    //$idUsuario = htmlspecialchars($_POST['idUsuario']);   //Solo necesario si queremos seleccionar usuario en el desplegable
 
     //Validamos los datos
     if(empty($titulo) || empty($texto)){
@@ -32,7 +45,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $mensaje = new Mensaje();
         $mensaje->setTitulo($titulo);
         $mensaje->setTexto($texto);
-        $mensaje->setIdUsuario($idUsuario);
+        //$mensaje->setIdUsuario($idUSuario) //Metía el usuario seleccionado en el desplegable
+        $mensaje->setIdUsuario($_SESSION['id']); //El id del usuario conectado (en la sesión)
         $mensajesDAO->insert($mensaje);
         header('location: index.php');
         die();
@@ -54,11 +68,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <form action="insertar_mensaje.php" method="post">
         <input type="text" name="titulo" placeholder="Titulo"><br>
         <textarea name="texto" placeholder="Texto"></textarea><br>
-        <select name="idUsuario">
+        <!--<select name="idUsuario">
             <?php foreach($usuarios as $usuario): ?>
                 <option value="<?= $usuario->getId() ?>"><?= $usuario->getEmail() ?></option>
             <?php endforeach; ?>
-        </select><br>
+        </select><br>-->
         <input type="submit">
     </form>
 </body>

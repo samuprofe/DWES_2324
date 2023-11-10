@@ -59,6 +59,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $passwordCifrado = password_hash($password,PASSWORD_DEFAULT);
             $usuario->setPassword($passwordCifrado);
             $usuario->setFoto($foto);
+            $usuario->setSid(sha1(rand()+time()), true);
 
             if($usuariosDAO->insert($usuario)){
                 header("location: index.php");
