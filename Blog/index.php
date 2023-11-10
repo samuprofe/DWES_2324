@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once 'modelos/ConnexionDB.php';
 require_once 'modelos/Mensaje.php';
 require_once 'modelos/MensajesDAO.php';
@@ -50,22 +51,48 @@ $mensajes = $mensajeDAO->getAll();
         color:#aaa;
     }
 
+    .error{
+        color:red;
+        display: block;
+        padding: 10px;
+        margin: auto 50px;
+        border: 1px solid red;
+        text-align: center;
+
+    }
+    .fotoUsuario{
+        height: 50px;;
+    }
+    header{
+        height: 120px;
+    }
     </style>
     </style>
 </head>
 <body>
 <header>
     <h1>Todos los mensajes</h1>
-    <form action="login.php" method="post">
-        <input type="email" name="email" placeholder="email">
-        <input type="password" name="password" placeholder="password">
-        <input type="submit" value="login">
-        <a href="registrar.php">registrar</a>
-    </form>
-    
+    <?php if(isset($_SESSION['email'])): ?>
+        <img src="fotosUsuarios/<?= $_SESSION['foto']?>" class="fotoUsuario">
+        <span class="emailUsuario"><?= $_SESSION['email'] ?></span>
+        <a href="logout.php">cerrar sesión</a>
+    <?php else: ?>
+        <form action="login.php" method="post">
+            <input type="email" name="email" placeholder="email">
+            <input type="password" name="password" placeholder="password">
+            <input type="submit" value="login">
+            <a href="registrar.php">registrar</a>
+        </form>
+    <?php endif; ?>
 </header>
 
 <main>
+    <?php 
+    if(isset($_SESSION['error'])){
+        echo '<div class="error">'.$_SESSION['error'].'</div>';
+        unset($_SESSION['error']);
+    } 
+    ?>
     <?php foreach ($mensajes as $mensaje): ?>
         <div class="mensaje">
            <h4 class="titulo">
