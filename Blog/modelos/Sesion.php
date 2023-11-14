@@ -19,7 +19,7 @@ class Sesion{
 /**
  * Para iniciar sesión: Sesion::iniciarSesion($usuario);
  * Para cerrar sesión: Sesion::cerrarSesion();
- * Para obtener el usuario Sesion::getUsuario()
- * Para obener una propiedad del usuario Sesion::getUsuario->getFoto()
- * Para comprobar si se ha iniciado sesión if(Sesion::getUsuario)...
- * /
+ * Para obtener el usuario: Sesion::getUsuario()
+ * Para obener una propiedad del usuario: Sesion::getUsuario()->getFoto()
+ * Para comprobar si se ha iniciado sesión: if(Sesion::getUsuario())...
+ */
