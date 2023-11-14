@@ -22,6 +22,7 @@ if( !isset($_SESSION['email']) && isset($_COOKIE['sid'])){
         $_SESSION['id']=$usuario->getId();
         $_SESSION['foto']=$usuario->getFoto();
     }
+    
 }
 
 
@@ -139,6 +140,8 @@ $mensajes = $mensajeDAO->getAll();
                 <span class="icono_editar"><a href="editar_mensaje.php?id=<?=$mensaje->getId()?>"><i class="fa-solid fa-pen-to-square color_gris" "></i></a></span>
             <?php endif; ?>
            <p class="texto"><?= $mensaje->getTexto() ?></p>
+           <img src="fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
+           <span><?= $mensaje->getUsuario()->getEmail() ?></span>
         </div>
     <?php endforeach; ?>
     <?php if(isset($_SESSION['email'])): ?>

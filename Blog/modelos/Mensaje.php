@@ -5,6 +5,20 @@ class Mensaje {
     private $texto;
     private $idUsuario;
     private $fecha;
+    private $usuario;
+
+    /**
+     * Obtiene el usuario propietario de este mensaje
+     */
+    public function getUsuario(){
+        if(is_null($this->usuario)){
+            $connexionDB = new ConnexionDB('root','','localhost','blog');
+            $conn = $connexionDB->getConnexion();
+            $usuariosDAO = new UsuariosDAO($conn);
+            $this->usuario = $usuariosDAO->getById($this->getIdUsuario());
+        }
+        return $this->usuario;
+    }
 
 
     /**

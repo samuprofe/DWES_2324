@@ -56,6 +56,27 @@ class UsuariosDAO {
         }
     } 
 
+    public function getById($id):Usuario|null {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE id = ?"))
+        {
+            echo "Error en la SQL: " . $this->conn->error;
+        }
+        //Asociar las variables a las interrogaciones(parámetros)
+        $stmt->bind_param('s',$id);
+        //Ejecutamos la SQL
+        $stmt->execute();
+        //Obtener el objeto mysql_result
+        $result = $stmt->get_result();
+
+        //Si ha encontrado algún resultado devolvemos un objeto de la clase Mensaje, sino null
+        if($result->num_rows >= 1){
+            $usuario = $result->fetch_object(Usuario::class);
+            return $usuario;
+        }
+        else{
+            return null;
+        }
+    } 
 
     /**
      * Obtiene todos los usuarios de la tabla mensajes
