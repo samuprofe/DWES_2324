@@ -6,9 +6,10 @@ require_once 'modelos/MensajesDAO.php';
 require_once 'modelos/Usuario.php';
 require_once 'modelos/UsuariosDAO.php';
 require_once 'funciones.php';
+require_once 'modelos/config.php';
 
 //Creamos la conexión utilizando la clase que hemos creado
-$connexionDB = new ConnexionDB('root','','localhost','blog');
+$connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
 $conn = $connexionDB->getConnexion();
 
 //Si existe la cookie y no ha iniciado sesión, le iniciamos sesión de forma automática
@@ -106,7 +107,6 @@ $mensajes = $mensajeDAO->getAll();
     .tituloPagina{
         text-align: center;;
     }
-    </style>
     </style>
 </head>
 <body>

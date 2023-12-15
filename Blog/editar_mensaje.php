@@ -4,12 +4,13 @@ require_once 'modelos/Mensaje.php';
 require_once 'modelos/MensajesDAO.php';
 require_once 'modelos/Usuario.php';
 require_once 'modelos/UsuariosDAO.php';
+require_once 'modelos/config.php';
 
 $error ='';
 
 
 //Conectamos con la bD
-$connexionDB = new ConnexionDB('root','','localhost','blog');
+$connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
 $conn = $connexionDB->getConnexion();
 
 //Obtengo el id del mensaje que viene por GET

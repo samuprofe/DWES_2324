@@ -1,9 +1,6 @@
 <?php 
 class Sesion{
-    /**
-     * Devuelve el usuario o false si no se ha iniciado sesión
-     */
-    static public function getUsuario():Usuario{
+    static public function getUsuario():Usuario|false{
         if(isset($_SESSION['usuario'])){
             return unserialize($_SESSION['usuario']); 
         }else{

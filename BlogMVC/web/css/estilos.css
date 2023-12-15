@@ -1,0 +1,66 @@
+.mensaje{
+    margin: 30px auto;
+    padding:5px;
+    border:1px solid black;
+    width: 80%;
+    position: relative;
+}
+.nuevoMensaje{
+    margin: 30px auto;
+    padding:5px;
+    border:1px solid black;
+    width: 80%;
+    background-color: #00f;        
+    color:white;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+.titulo{
+    font-size: 2em;
+}
+.texto{
+    font-size: 1.5em;
+}
+.icono_borrar{
+    top: 5px;
+    right: 5px;
+    position: absolute;
+}
+.icono_editar{
+    top: 5px;
+    right: 25px;
+    position: absolute;
+}
+.color_gris:hover{
+    color:black;
+}
+.color_gris{
+    color:#aaa;
+}
+
+.error{
+    color:red;
+    display: block;
+    padding: 5px;
+    margin: auto;
+    width: 80%;
+    border: 1px solid red;
+    text-align: center;
+    margin-top: 20px;
+
+}
+.fotoUsuario{
+    height: 50px;;
+}
+header{
+    margin: 0px auto;
+    padding:5px;
+    border:1px solid black;
+    width: 80%;
+    position: relative;
+    height: 140px;
+}
+.tituloPagina{
+    text-align: center;;
+}
