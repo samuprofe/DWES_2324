@@ -20,7 +20,7 @@
             <input type="email" name="email" placeholder="email">
             <input type="password" name="password" placeholder="password">
             <input type="submit" value="login">
-            <a href="registrar.php">registrar</a>
+            <a href="index.php?accion=registrar">registrar</a>
         </form>
     <?php endif; ?>
 </header>
@@ -34,7 +34,7 @@
            <h4 class="titulo">
             <a href="index.php?accion=ver_mensaje&id=<?=$mensaje->getId()?>"><?= $mensaje->getTitulo() ?></a>
             </h4>
-            <?php if(isset($_SESSION['email']) && $_SESSION['id']==$mensaje->getIdUsuario()): ?>
+            <?php if(Sesion::getUsuario() && Sesion::getUsuario()->getId()==$mensaje->getIdUsuario()): ?>
                 <span class="icono_borrar"><a href="borrar_mensaje.php?id=<?=$mensaje->getId()?>"><i class="fa-solid fa-trash color_gris"></i></a></span>
                 <span class="icono_editar"><a href="editar_mensaje.php?id=<?=$mensaje->getId()?>"><i class="fa-solid fa-pen-to-square color_gris" "></i></a></span>
             <?php endif; ?>
@@ -43,7 +43,7 @@
            <span><?= $mensaje->getUsuario()->getEmail() ?></span>
         </div>
     <?php endforeach; ?>
-    <?php if(isset($_SESSION['email'])): ?>
+    <?php if(Sesion::getUsuario()): ?>
         <a href="insertar_mensaje.php" class="nuevoMensaje">Nuevo mensaje</a>
     <?php endif; ?>
 </main>    
