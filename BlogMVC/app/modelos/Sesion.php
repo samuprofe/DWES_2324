@@ -14,6 +14,15 @@ class Sesion{
 
     static public function cerrarSesion(){
         unset($_SESSION['usuario']);
+        
+    }
+
+    static public function existeSesion(){
+        if(isset($_SESSION['usuario'])){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 /**
