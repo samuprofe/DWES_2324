@@ -17,8 +17,7 @@ class TareasDAO {
         $tareas = array();
 
         if ($resultados->num_rows > 0) {
-            while ($fila = $resultados->fetch_assoc()) {
-                $tarea = new Tarea($fila['id'], $fila['texto'], $fila['fecha']);
+            while ($tarea = $resultados->fetch_object(Tarea::class)) {
                 $tareas[] = $tarea;
             }
         }
@@ -44,8 +43,8 @@ class TareasDAO {
         $resultado = $this->conexion->query($query);
 
         if ($resultado->num_rows > 0) {
-            $fila = $resultado->fetch_assoc();
-            $tarea = new Tarea($fila['id'], $fila['texto'], $fila['fecha']);
+            $tarea = $resultado->fetch_object(Tarea::class);
+            
             return $tarea;
         } else {
             return null;
