@@ -24,15 +24,19 @@ botonInsertar.addEventListener('click',function (){
         //console.log(tarea);
         //Añado la la tarea al div "tareas" modificando el DOM
         var capaTarea = document.createElement('div');
-        capaTarea.classList.add('tarea');
         var capaTexto = document.createElement('div');
+        var papelera = document.createElement('i');
+        var preloader = document.createElement('img');
+        capaTarea.classList.add('tarea');
         capaTexto.classList.add('texto');
         capaTexto.innerHTML=tarea.texto;
-        var papelera = document.createElement('i');
         papelera.classList.add('fa-solid', 'fa-trash', 'papelera');
         papelera.setAttribute("data-idTarea",tarea.id);
+        preloader.setAttribute('src','preloader.gif');
+        preloader.classList.add('preloaderBorrar');
         capaTarea.appendChild(capaTexto);
         capaTarea.appendChild(papelera);
+        capaTarea.appendChild(preloader);
         document.getElementById('tareas').appendChild(capaTarea);
 
         //Añadir manejador de evento Borrar a la nueva papelera
@@ -58,23 +62,26 @@ papeleras.forEach(papelera => {
 function manejadorBorrar(){
     //this referencia al elementos del DOM sobre el que hemos hecho click
     let idTarea = this.getAttribute('data-idTarea');
-    
+    //Mostramos preloader
+    let preloader = this.parentElement.querySelector('img');
+    preloader.style.visibility="visible";
+    this.style.visibility='hidden';
     //Llamamos al script del servidor que borra la tarea pasándole el idTarea como parámetro
     fetch('borrar.php?id='+idTarea)
     .then(datos => datos.json())
     .then(respuesta =>{
-        //Mostramos preloader
-        
         if(respuesta.respuesta=='ok'){
             this.parentElement.remove();
         }
         else{
             alert("No se ha encontrado la tarea en el servidor");
+            this.style.visibility='visible';
         }
     })
     .finally(function(){
         //Ocultamos preloader
-
+        preloader.style.visibility="hidden";
+        this.style.visibility='visible';
     });
 }
 

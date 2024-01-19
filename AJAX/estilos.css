@@ -37,10 +37,17 @@
     width: 20%;
     margin: 10px auto;
     font-size: 1.5em;
-    
+    cursor: pointer;
 }
 #preloaderInsertar{
     height: 60px;
     vertical-align: middle;
+    visibility: hidden;
+}
+.preloaderBorrar{
+    position: absolute;
+    top:5px;
+    right: 2px;
+    height: 30px;
     visibility: hidden;
 }

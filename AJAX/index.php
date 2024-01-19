@@ -23,6 +23,7 @@ $tareas = $tareasDAO->obtenerTodasLasTareas();
             <div class="tarea">
                 <div class="texto"><?= $tarea->getTexto() ?></div>
                 <i class="fa-solid fa-trash papelera" data-idTarea="<?= $tarea->getId()?>"></i>
+                <img src="preloader.gif" class="preloaderBorrar">
             </div>
         <?php endforeach; ?>
     </div>
