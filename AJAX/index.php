@@ -18,13 +18,14 @@ $tareas = $tareasDAO->obtenerTodasLasTareas();
 </head>
 <body>
 
-    <?php foreach ($tareas as $tarea): ?>
-        <div class="tarea">
-            <div class="texto"><?= $tarea->getTexto() ?></div>
-            <i class="fa-solid fa-trash papelera"></i>
-        </div>
-
-    <?php endforeach; ?>
+    <div id="tareas">
+        <?php foreach ($tareas as $tarea): ?>
+            <div class="tarea">
+                <div class="texto"><?= $tarea->getTexto() ?></div>
+                <i class="fa-solid fa-trash papelera" data-idTarea="<?= $tarea->getId()?>"></i>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
     <input type="text" id="nuevaTarea">
     <button id="botonNuevaTarea">Enviar</button>

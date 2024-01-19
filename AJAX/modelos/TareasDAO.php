@@ -54,5 +54,18 @@ class TareasDAO {
     public function cerrarConexion() {
         $this->conexion->close();
     }
+
+
+    public function borrarTarea($id) {
+        $texto = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
+        $query = "delete from tareas where id=$id";
+        
+        $this->conexion->query($query);
+        if($this->conexion->affected_rows==1){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
