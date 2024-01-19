@@ -46,7 +46,11 @@ papeleras.forEach(papelera => {
         let idTarea = this.getAttribute('data-idTarea');
         
         //Llamamos al script del servidor que borra la tarea pasándole el idTarea como parámetro
-        fetch('borrar.php?id='+idTarea);
+        fetch('borrar.php?id='+idTarea)
+        .then(datos => datos.json)
+        .then(respuesta =>{
+            console.log(respuesta);
+        });
         
         
         
@@ -54,5 +58,5 @@ papeleras.forEach(papelera => {
 });
 
     
-console.log(papeleras);
+
 

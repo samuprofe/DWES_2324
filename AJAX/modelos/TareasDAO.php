@@ -57,7 +57,7 @@ class TareasDAO {
 
 
     public function borrarTarea($id) {
-        $texto = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
+        $id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
         $query = "delete from tareas where id=$id";
         
         $this->conexion->query($query);
