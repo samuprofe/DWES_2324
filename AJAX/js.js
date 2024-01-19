@@ -63,12 +63,18 @@ function manejadorBorrar(){
     fetch('borrar.php?id='+idTarea)
     .then(datos => datos.json())
     .then(respuesta =>{
+        //Mostramos preloader
+        
         if(respuesta.respuesta=='ok'){
             this.parentElement.remove();
         }
         else{
             alert("No se ha encontrado la tarea en el servidor");
         }
+    })
+    .finally(function(){
+        //Ocultamos preloader
+
     });
 }
 

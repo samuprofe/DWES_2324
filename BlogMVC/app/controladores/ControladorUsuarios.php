@@ -105,6 +105,7 @@ Class ControladorUsuarios{
 
     public function logout(){
         Sesion::cerrarSesion();
+        setcookie('sid','',0,'/');
         header('location: index.php');
     }
 

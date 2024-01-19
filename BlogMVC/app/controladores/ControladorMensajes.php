@@ -100,6 +100,43 @@ class ControladorMensajes{
     }
 
     public function insertar(){
-        print "Insertar";
+        
+        $error ='';
+
+        //Creamos la conexión utilizando la clase que hemos creado
+        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $usuariosDAO = new UsuariosDAO($conn);
+        $usuarios = $usuariosDAO->getAll();
+
+
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+
+            //Limpiamos los datos que vienen del usuario
+            $titulo = htmlspecialchars($_POST['titulo']);
+            $texto =  htmlspecialchars($_POST['texto']);
+            //$idUsuario = htmlspecialchars($_POST['idUsuario']);   //Solo necesario si queremos seleccionar usuario en el desplegable
+
+            //Validamos los datos
+            if(empty($titulo) || empty($texto)){
+                $error = "Los dos campos son obligatorios";
+            }
+            else{
+                //Creamos el objeto MensajesDAO para acceder a BBDD a través de este objeto
+                $mensajesDAO = new MensajesDAO($conn);
+                $mensaje = new Mensaje();
+                $mensaje->setTitulo($titulo);
+                $mensaje->setTexto($texto);
+                //$mensaje->setIdUsuario($idUSuario) //Metía el usuario seleccionado en el desplegable
+                $mensaje->setIdUsuario(Sesion::getUsuario()->getId()); //El id del usuario conectado (en la sesión)
+                $mensajesDAO->insert($mensaje);
+                header('location: index.php');
+                die();
+            }
+
+
+        }
+        require 'app/vistas/insertar_mensaje.php';
     }
 }

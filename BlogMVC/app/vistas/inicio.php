@@ -39,12 +39,12 @@
                 <span class="icono_editar"><a href="index.php?accion=editar_mensaje&id=<?=$mensaje->getId()?>"><i class="fa-solid fa-pen-to-square color_gris" "></i></a></span>
             <?php endif; ?>
            <p class="texto"><?= $mensaje->getTexto() ?></p>
-           <img src="fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
+           <img src="web/fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
            <span><?= $mensaje->getUsuario()->getEmail() ?></span>
         </div>
     <?php endforeach; ?>
     <?php if(Sesion::getUsuario()): ?>
-        <a href="insertar_mensaje.php" class="nuevoMensaje">Nuevo mensaje</a>
+        <a href="index.php?accion=insertar_mensaje" class="nuevoMensaje">Nuevo mensaje</a>
     <?php endif; ?>
 </main>    
 <script>
