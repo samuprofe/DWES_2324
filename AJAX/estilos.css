@@ -39,3 +39,8 @@
     font-size: 1.5em;
     
 }
+#preloaderInsertar{
+    height: 60px;
+    vertical-align: middle;
+    visibility: hidden;
+}

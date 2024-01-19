@@ -4,6 +4,8 @@ let botonInsertar= document.getElementById('botonNuevaTarea');
 //document.querySelector('.papelera')
 
 botonInsertar.addEventListener('click',function (){
+    //Muestro el preloader
+    document.getElementById('preloaderInsertar').style.visibility='visible';
 
     //Envío datos mediante POST a insertar.php construyendo un FormData
     const datos = new FormData();
@@ -19,7 +21,7 @@ botonInsertar.addEventListener('click',function (){
         return respuesta.json();
     })
     .then(tarea => {
-        console.log(tarea);
+        //console.log(tarea);
         //Añado la la tarea al div "tareas" modificando el DOM
         var capaTarea = document.createElement('div');
         capaTarea.classList.add('tarea');
@@ -28,6 +30,7 @@ botonInsertar.addEventListener('click',function (){
         capaTexto.innerHTML=tarea.texto;
         var papelera = document.createElement('i');
         papelera.classList.add('fa-solid', 'fa-trash', 'papelera');
+        papelera.setAttribute("data-idTarea",tarea.id);
         capaTarea.appendChild(capaTexto);
         capaTarea.appendChild(papelera);
         document.getElementById('tareas').appendChild(capaTarea);
@@ -36,7 +39,11 @@ botonInsertar.addEventListener('click',function (){
         papelera.addEventListener('click',manejadorBorrar);
 
         //También se podría hacer así:
-        //document.getElementById('tareas').innerHTML+='<div class="tarea"><div class="texto">'+tarea.texto+'</div><i class="fa-solid fa-trash papelera"></i></div>';
+        //document.getElementById('tareas').innerHTML+='<div class="tarea"><div class="texto">'+tarea.texto+'</div><i class="fa-solid fa-trash papelera" data-idTarea="'+tarea.id+'"></i></div>';
+    })
+    .finally(function(){
+        //Ocultamos el preloader
+        document.getElementById('preloaderInsertar').style.visibility='hidden';
     });
     
 });
@@ -48,8 +55,6 @@ papeleras.forEach(papelera => {
 });
 
     
-
-
 function manejadorBorrar(){
     //this referencia al elementos del DOM sobre el que hemos hecho click
     let idTarea = this.getAttribute('data-idTarea');
@@ -66,3 +71,4 @@ function manejadorBorrar(){
         }
     });
 }
+

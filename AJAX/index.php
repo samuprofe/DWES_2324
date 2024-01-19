@@ -28,7 +28,7 @@ $tareas = $tareasDAO->obtenerTodasLasTareas();
     </div>
 
     <input type="text" id="nuevaTarea">
-    <button id="botonNuevaTarea">Enviar</button>
+    <button id="botonNuevaTarea">Enviar</button><img src="preloader.gif" id="preloaderInsertar">
 
     <script src="js.js" type="text/javascript"></script>
 </body>
