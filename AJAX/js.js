@@ -50,7 +50,10 @@ papeleras.forEach(papelera => {
         .then(datos => datos.json())
         .then(respuesta =>{
             if(respuesta.respuesta=='ok'){
-            
+                this.parentElement.remove();
+            }
+            else{
+                alert("No se ha encontrado la tarea en el servidor");
             }
         });
         
