@@ -44,6 +44,9 @@ botonInsertar.addEventListener('click',function (){
 
         //También se podría hacer así:
         //document.getElementById('tareas').innerHTML+='<div class="tarea"><div class="texto">'+tarea.texto+'</div><i class="fa-solid fa-trash papelera" data-idTarea="'+tarea.id+'"></i></div>';
+
+        //Borro el contenido del input
+        document.getElementById('nuevaTarea').value='';
     })
     .finally(function(){
         //Ocultamos el preloader
