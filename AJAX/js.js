@@ -47,9 +47,11 @@ papeleras.forEach(papelera => {
         
         //Llamamos al script del servidor que borra la tarea pasándole el idTarea como parámetro
         fetch('borrar.php?id='+idTarea)
-        .then(datos => datos.json)
+        .then(datos => datos.json())
         .then(respuesta =>{
-            console.log(respuesta);
+            if(respuesta.respuesta=='ok'){
+            
+            }
         });
         
         
