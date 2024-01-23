@@ -45,6 +45,7 @@ class FavoritosDAO {
             die("Error al preparar la consulta select count: " . $this->conn->error );
         }
         $stmt->bind_param('i',$idMensaje);
+        $stmt->execute();
         $result = $stmt->get_result();
         $fila = $result->fetch_assoc();
         return $fila['NumFavoritos'];

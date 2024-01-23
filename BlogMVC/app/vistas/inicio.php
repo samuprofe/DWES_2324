@@ -36,6 +36,7 @@
         $idUsuario = Sesion::getUsuario()->getId();
         $idMensaje = $mensaje->getId();
         $existeFavorito = $FavoritosDAO->existByIdUsuarioIdMensaje($idUsuario, $idMensaje);
+        $numFavoritos = $FavoritosDAO->countByIdMensaje($idMensaje);
         ?>
         <div class="mensaje">
            <h4 class="titulo">
@@ -54,6 +55,7 @@
             <?php else: ?>
                 <i class="fa-solid fa-heart iconoFavoritoOff"></i></i>
             <?php endif; ?>
+            <?= $numFavoritos ?>
         </div>
     <?php endforeach; ?>
     <?php if(Sesion::getUsuario()): ?>
