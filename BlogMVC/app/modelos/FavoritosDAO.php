@@ -49,6 +49,23 @@ class FavoritosDAO {
         $fila = $result->fetch_assoc();
         return $fila['NumFavoritos'];
     }
-    
+
+    /**
+     * Función que comprueba si existe un favorito con idUsuario y idMensaje
+     * Devuelve true si existe y false si no existe
+     */
+    public function existByIdUsuarioIdMensaje($idUsuario, $idMensaje){
+        if(!$stmt = $this->conn->prepare("SELECT * FROM favoritos WHERE idMensaje = ? and idUsuario=?")){
+            die("Error al preparar la consulta select count: " . $this->conn->error );
+        }
+        $stmt->bind_param('ii',$idMensaje, $idUsuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows>=1){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 

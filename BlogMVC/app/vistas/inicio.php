@@ -30,6 +30,13 @@
         imprimirMensaje();
     ?>
     <?php foreach ($mensajes as $mensaje): ?>
+        <?php
+        //Compruebo si existe un favorito para este mensaje del usuario conectado
+        $FavoritosDAO = new FavoritosDAO($conn);
+        $idUsuario = Sesion::getUsuario()->getId();
+        $idMensaje = $mensaje->getId();
+        $existeFavorito = $FavoritosDAO->existByIdUsuarioIdMensaje($idUsuario, $idMensaje);
+        ?>
         <div class="mensaje">
            <h4 class="titulo">
             <a href="index.php?accion=ver_mensaje&id=<?=$mensaje->getId()?>"><?= $mensaje->getTitulo() ?></a>
@@ -42,7 +49,11 @@
            <p class="texto"><?= $mensaje->getTexto() ?></p>
            <img src="web/fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
            <span><?= $mensaje->getUsuario()->getEmail() ?></span>
-           <i class="fa-regular fa-thumbs-up iconoFavorito"></i>
+           <?php if($existeFavorito): ?>
+                <i class="fa-regular fa-heart iconoFavoritoOn"></i>
+            <?php else: ?>
+                <i class="fa-solid fa-heart iconoFavoritoOff"></i></i>
+            <?php endif; ?>
         </div>
     <?php endforeach; ?>
     <?php if(Sesion::getUsuario()): ?>

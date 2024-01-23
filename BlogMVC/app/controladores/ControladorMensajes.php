@@ -25,7 +25,6 @@ class ControladorMensajes{
         //Creamos el objeto MensajesDAO para acceder a BBDD a través de este objeto
         $mensajeDAO = new MensajesDAO($conn);
         $mensajes = $mensajeDAO->getAll();
-
         //Incluyo la vista
         require 'app/vistas/inicio.php';
     }
