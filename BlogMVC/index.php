@@ -6,8 +6,11 @@ require_once 'app/modelos/Mensaje.php';
 require_once 'app/modelos/MensajesDAO.php';
 require_once 'app/modelos/Usuario.php';
 require_once 'app/modelos/UsuariosDAO.php';
+require_once 'app/modelos/Favorito.php';
+require_once 'app/modelos/FavoritosDAO.php';
 require_once 'app/controladores/ControladorMensajes.php';
 require_once 'app/controladores/ControladorUsuarios.php';
+require_once 'app/controladores/ControladorFavoritos.php';
 require_once 'app/utils/funciones.php';
 require_once 'app/modelos/Sesion.php';
 
@@ -39,7 +42,13 @@ $mapa = array(
                     'privada'=>true),
     'registrar'=>array('controlador'=>'ControladorUsuarios', 
                        'metodo'=>'registrar', 
-                       'privada'=>false)
+                       'privada'=>false),
+    'insertar_favorito'=>array('controlador'=>'ControladorFavoritos', 
+                       'metodo'=>'insertar', 
+                       'privada'=>false),                       
+    'borrar_favorito'=>array('controlador'=>'ControladorFavoritos', 
+                       'metodo'=>'borrar', 
+                       'privada'=>false),                                              
 );
 
 

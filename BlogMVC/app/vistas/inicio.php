@@ -34,6 +34,7 @@
            <h4 class="titulo">
             <a href="index.php?accion=ver_mensaje&id=<?=$mensaje->getId()?>"><?= $mensaje->getTitulo() ?></a>
             </h4>
+            
             <?php if(Sesion::getUsuario() && Sesion::getUsuario()->getId()==$mensaje->getIdUsuario()): ?>
                 <span class="icono_borrar"><a href="index.php?accion=borrar_mensaje&id=<?=$mensaje->getId()?>"><i class="fa-solid fa-trash color_gris"></i></a></span>
                 <span class="icono_editar"><a href="index.php?accion=editar_mensaje&id=<?=$mensaje->getId()?>"><i class="fa-solid fa-pen-to-square color_gris" "></i></a></span>
@@ -41,6 +42,7 @@
            <p class="texto"><?= $mensaje->getTexto() ?></p>
            <img src="web/fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
            <span><?= $mensaje->getUsuario()->getEmail() ?></span>
+           <i class="fa-regular fa-thumbs-up iconoFavorito"></i>
         </div>
     <?php endforeach; ?>
     <?php if(Sesion::getUsuario()): ?>
