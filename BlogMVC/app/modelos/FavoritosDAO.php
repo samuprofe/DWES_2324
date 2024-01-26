@@ -32,6 +32,7 @@ class FavoritosDAO {
         }
         $id = $favorito->getId();
         $stmt->bind_param('i',$id);
+        $stmt->execute();
         if($stmt->affected_rows >=1 ){
             return true;
         }
@@ -68,5 +69,21 @@ class FavoritosDAO {
             return false;
         }
     }
+    public function getByIdUsuarioIdMensaje($idUsuario, $idMensaje){
+        if(!$stmt = $this->conn->prepare("SELECT * FROM favoritos WHERE idMensaje = ? and idUsuario=?")){
+            die("Error al preparar la consulta select count: " . $this->conn->error );
+        }
+        $stmt->bind_param('ii',$idMensaje, $idUsuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if($favorito = $result->fetch_object(Favorito::class)){
+            return $favorito;
+        }
+        else{
+            return false;
+        }
+        
+    }    
 }
 

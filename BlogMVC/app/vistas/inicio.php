@@ -31,12 +31,14 @@
     ?>
     <?php foreach ($mensajes as $mensaje): ?>
         <?php
-        //Compruebo si existe un favorito para este mensaje del usuario conectado
-        $FavoritosDAO = new FavoritosDAO($conn);
-        $idUsuario = Sesion::getUsuario()->getId();
-        $idMensaje = $mensaje->getId();
-        $existeFavorito = $FavoritosDAO->existByIdUsuarioIdMensaje($idUsuario, $idMensaje);
-        $numFavoritos = $FavoritosDAO->countByIdMensaje($idMensaje);
+        if(Sesion::existeSesion()){
+            //Compruebo si existe un favorito para este mensaje del usuario conectado
+            $FavoritosDAO = new FavoritosDAO($conn);
+            $idUsuario = Sesion::getUsuario()->getId();
+            $idMensaje = $mensaje->getId();
+            $existeFavorito = $FavoritosDAO->existByIdUsuarioIdMensaje($idUsuario, $idMensaje);
+            $numFavoritos = $FavoritosDAO->countByIdMensaje($idMensaje);
+        }
         ?>
         <div class="mensaje">
            <h4 class="titulo">
@@ -50,12 +52,14 @@
            <p class="texto"><?= $mensaje->getTexto() ?></p>
            <img src="web/fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
            <span><?= $mensaje->getUsuario()->getEmail() ?></span>
-           <?php if($existeFavorito): ?>
-                <i class="fa-regular fa-heart iconoFavoritoOn"></i>
-            <?php else: ?>
-                <i class="fa-solid fa-heart iconoFavoritoOff"></i></i>
+           <?php if(Sesion::existeSesion()): ?>
+            <?php if($existeFavorito): ?>
+                    <i class="fa-solid fa-heart iconoFavoritoOn" data-idMensaje="<?= $mensaje->getId()?>"></i>
+                <?php else: ?>
+                    <i class="fa-regular fa-heart iconoFavoritoOff" data-idMensaje="<?= $mensaje->getId()?>"></i>
+                <?php endif; ?>
+                <span class="numFavoritos"><?= $numFavoritos ?></span>
             <?php endif; ?>
-            <?= $numFavoritos ?>
         </div>
     <?php endforeach; ?>
     <?php if(Sesion::getUsuario()): ?>
@@ -64,6 +68,26 @@
 </main>    
 <script>
 setTimeout(function(){document.getElementById('mensajeError').style.display='none'},5000);
+
+let favoritosOn = document.querySelectorAll('.iconoFavoritoOn');
+favoritosOn.forEach(favoritoOn =>{
+    favoritoOn.addEventListener('click',function(){
+        let idMensaje = this.getAttribute('data-idMensaje');
+        fetch('index.php?accion=borrar_favorito&id='+idMensaje)
+        .then(datos => datos.json())
+        .then(respuesta =>{
+            console.log(respuesta);
+            this.classList.remove("iconoFavoritoOn");
+            this.classList.remove("fa-solid");
+            this.classList.add("iconoFavoritoOff");
+            this.classList.add("fa-regular");
+            this.parentNode.querySelector('.numFavoritos').innerHTML=respuesta.numFavoritos;
+        })
+    });
+});
+
+
+
 </script>
 </body>
 </html>
