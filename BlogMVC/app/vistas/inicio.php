@@ -85,6 +85,22 @@ favoritosOn.forEach(favoritoOn =>{
         })
     });
 });
+let favoritosOff = document.querySelectorAll('.iconoFavoritoOff');
+favoritosOff.forEach(favoritoOff =>{
+    favoritoOff.addEventListener('click',function(){
+        let idMensaje = this.getAttribute('data-idMensaje');
+        fetch('index.php?accion=insertar_favorito&id='+idMensaje)
+        .then(datos => datos.json())
+        .then(respuesta =>{
+            console.log(respuesta);
+            this.classList.remove("iconoFavoritoOff");
+            this.classList.remove("fa-regular");
+            this.classList.add("iconoFavoritoOn");
+            this.classList.add("fa-solid");
+            this.parentNode.querySelector('.numFavoritos').innerHTML=respuesta.numFavoritos;
+        })
+    });
+});
 
 
 
