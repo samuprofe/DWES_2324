@@ -67,27 +67,18 @@
     <?php endif; ?>
 </main>    
 <script>
-setTimeout(function(){document.getElementById('mensajeError').style.display='none'},5000);
 
 let favoritosOn = document.querySelectorAll('.iconoFavoritoOn');
 favoritosOn.forEach(favoritoOn =>{
-    favoritoOn.addEventListener('click',function(){
-        let idMensaje = this.getAttribute('data-idMensaje');
-        fetch('index.php?accion=borrar_favorito&id='+idMensaje)
-        .then(datos => datos.json())
-        .then(respuesta =>{
-            console.log(respuesta);
-            this.classList.remove("iconoFavoritoOn");
-            this.classList.remove("fa-solid");
-            this.classList.add("iconoFavoritoOff");
-            this.classList.add("fa-regular");
-            this.parentNode.querySelector('.numFavoritos').innerHTML=respuesta.numFavoritos;
-        })
-    });
+    favoritoOn.addEventListener('click',quitarFavorito);
 });
+
 let favoritosOff = document.querySelectorAll('.iconoFavoritoOff');
 favoritosOff.forEach(favoritoOff =>{
-    favoritoOff.addEventListener('click',function(){
+    favoritoOff.addEventListener('click',ponerFavorito);
+});
+
+function ponerFavorito(){
         let idMensaje = this.getAttribute('data-idMensaje');
         fetch('index.php?accion=insertar_favorito&id='+idMensaje)
         .then(datos => datos.json())
@@ -98,10 +89,28 @@ favoritosOff.forEach(favoritoOff =>{
             this.classList.add("iconoFavoritoOn");
             this.classList.add("fa-solid");
             this.parentNode.querySelector('.numFavoritos').innerHTML=respuesta.numFavoritos;
+            this.removeEventListener('click',ponerFavorito);
+            this.addEventListener('click',quitarFavorito);
         })
-    });
-});
+        
+    }
 
+function quitarFavorito(){
+        let idMensaje = this.getAttribute('data-idMensaje');
+        fetch('index.php?accion=borrar_favorito&id='+idMensaje)
+        .then(datos => datos.json())
+        .then(respuesta =>{
+            console.log(respuesta);
+            this.classList.remove("iconoFavoritoOn");
+            this.classList.remove("fa-solid");
+            this.classList.add("iconoFavoritoOff");
+            this.classList.add("fa-regular");
+            this.parentNode.querySelector('.numFavoritos').innerHTML=respuesta.numFavoritos;
+            this.removeEventListener('click',quitarFavorito);
+            this.addEventListener('click',ponerFavorito);
+        })
+        
+}
 
 
 </script>

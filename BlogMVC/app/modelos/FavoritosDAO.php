@@ -8,6 +8,7 @@ class FavoritosDAO {
     }
 
     public function insert($favorito){
+        if($this->existByIdUsuarioIdMensaje($favorito->getIdUsuario(), $favorito->getIdUsuario()));
         if(!$stmt = $this->conn->prepare("INSERT INTO favoritos (idMensaje, idUsuario) VALUES (?,?)")){
             die("Error al preparar la consulta insert: " . $this->conn->error );
         }

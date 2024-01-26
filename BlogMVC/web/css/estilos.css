@@ -64,3 +64,6 @@ header{
 .tituloPagina{
     text-align: center;;
 }
+.iconoFavoritoOn, .iconoFavoritoOff{
+    cursor: pointer;
+}
