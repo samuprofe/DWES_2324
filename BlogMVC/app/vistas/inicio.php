@@ -39,6 +39,9 @@
             $existeFavorito = $FavoritosDAO->existByIdUsuarioIdMensaje($idUsuario, $idMensaje);
             $numFavoritos = $FavoritosDAO->countByIdMensaje($idMensaje);
         }
+        //Obtengo las fotos de la BD
+        $fotosDAO = new FotosDAO($conn);
+        $fotos = $fotosDAO->getAllByIdMensaje($idMensaje);
         ?>
         <div class="mensaje">
            <h4 class="titulo">
@@ -50,7 +53,12 @@
                 <span class="icono_editar"><a href="index.php?accion=editar_mensaje&id=<?=$mensaje->getId()?>"><i class="fa-solid fa-pen-to-square color_gris" "></i></a></span>
             <?php endif; ?>
            <p class="texto"><?= $mensaje->getTexto() ?></p>
-           <img src="web/fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="100px">
+           <div id="fotos">
+              <?php foreach($fotos as $foto): ?>
+                <img src="web/images/<?=$foto->getNombreArchivo()?>" style="height: 100px; border: 1px solid black";>                
+              <?php endforeach; ?>
+           </div>
+           <img src="web/fotosUsuarios/<?= $mensaje->getUsuario()->getFoto() ?>" height="30px">
            <span><?= $mensaje->getUsuario()->getEmail() ?></span>
            <?php if(Sesion::existeSesion()): ?>
             <?php if($existeFavorito): ?>

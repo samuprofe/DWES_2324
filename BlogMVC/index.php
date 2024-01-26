@@ -8,6 +8,8 @@ require_once 'app/modelos/Usuario.php';
 require_once 'app/modelos/UsuariosDAO.php';
 require_once 'app/modelos/Favorito.php';
 require_once 'app/modelos/FavoritosDAO.php';
+require_once 'app/modelos/Foto.php';
+require_once 'app/modelos/FotosDAO.php';
 require_once 'app/controladores/ControladorMensajes.php';
 require_once 'app/controladores/ControladorUsuarios.php';
 require_once 'app/controladores/ControladorFavoritos.php';
@@ -48,7 +50,10 @@ $mapa = array(
                        'privada'=>false),                       
     'borrar_favorito'=>array('controlador'=>'ControladorFavoritos', 
                        'metodo'=>'borrar', 
-                       'privada'=>false),                                              
+                       'privada'=>false),
+    'addImageMensaje'=>array('controlador'=>'ControladorMensajes', 
+                       'metodo'=>'addImageMensaje', 
+                       'privada'=>false),
 );
 
 

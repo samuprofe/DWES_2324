@@ -67,9 +67,9 @@ class ControladorMensajes{
         $mensajeDAO = new MensajesDAO($conn);
         $mensaje = $mensajeDAO->getById($idMensaje);
 
-        //Obtenemos los usuarios de la BD para el desplegable
-        $usuariosDAO = new UsuariosDAO($conn);
-        $usuarios = $usuariosDAO->getAll();
+        //Obtengo las fotos de la BD
+        $fotosDAO = new FotosDAO($conn);
+        $fotos = $fotosDAO->getAllByIdMensaje($idMensaje);
 
         //Cuando se envíe el formulario actualizo el mensaje en la BD
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -77,7 +77,7 @@ class ControladorMensajes{
             //Limpiamos los datos que vienen del usuario
             $titulo = htmlspecialchars($_POST['titulo']);
             $texto = htmlspecialchars($_POST['texto']);
-            $idUsuario = htmlspecialchars($_POST['idUsuario']);
+            $idUsuario = Sesion::getUsuario()->getId();
 
             //Validamos los datos
             if(empty($titulo) || empty($texto)){
@@ -137,5 +137,24 @@ class ControladorMensajes{
 
         }
         require 'app/vistas/insertar_mensaje.php';
+    }
+
+    function addImageMensaje(){
+        $idMensaje = htmlentities($_GET['idMensaje']);
+        $nombreArchivo = htmlentities($_FILES['foto']['name']);
+        $informacionPath = pathinfo($nombreArchivo);
+        $extension = $informacionPath['extension'];
+        $nombreArchivo = md5(time()+rand()) . '.' . $extension;
+        move_uploaded_file($_FILES['foto']['tmp_name'],"web/images/$nombreArchivo");
+
+        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        $fotosDAO = new FotosDAO($conn);
+        $foto = new Foto();
+        $foto->setIdMensaje($idMensaje);
+        $foto->setNombreArchivo($nombreArchivo);
+        $fotosDAO->insert($foto);
+        print json_encode(['respuesta'=>'ok', 'nombreArchivo'=> $nombreArchivo]);
+
     }
 }

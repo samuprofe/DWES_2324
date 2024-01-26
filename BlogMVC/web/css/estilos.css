@@ -67,3 +67,21 @@ header{
 .iconoFavoritoOn, .iconoFavoritoOff{
     cursor: pointer;
 }
+#addImage{
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 3em;
+    font-weight: bolder;
+    color:#444;
+    text-align: center;
+    background-color: #eee;
+    padding-top: 20px;;
+}
+#addImage:hover{
+    color: black;
+    background-color: #aaa;
+}
