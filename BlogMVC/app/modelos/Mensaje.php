@@ -12,7 +12,7 @@ class Mensaje {
      */
     public function getUsuario(){
         if(is_null($this->usuario)){
-            $connexionDB = new ConnexionDB('root','','localhost','blog');
+            $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
             $conn = $connexionDB->getConnexion();
             $usuariosDAO = new UsuariosDAO($conn);
             $this->usuario = $usuariosDAO->getById($this->getIdUsuario());

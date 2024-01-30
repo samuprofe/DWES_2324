@@ -12,11 +12,14 @@
     <form action="index.php?accion=editar_mensaje&id=<?= $idMensaje ?>" method="post" data-idMensaje="<?=$idMensaje?>" id="formularioEditar">
         <input type="text" name="titulo" placeholder="Titulo" value="<?=$mensaje->getTitulo()?>"><br>
         <textarea name="texto" placeholder="Texto"><?=$mensaje->getTexto()?></textarea><br>
+        
         <div id="fotos">
-            <?php foreach($fotos as $foto): ?>
-                <img src="web/images/<?=$foto->getNombreArchivo()?>" style="height: 100px; border: 1px solid black";>                
-            <?php endforeach; ?>
-            <div id="addImage">+</div>
+            <div id="fotos2">
+                <?php foreach($fotos as $foto): ?>
+                    <img src="web/images/<?=$foto->getNombreArchivo()?>" class="imagenMensaje";>                
+                <?php endforeach; ?>
+            </div>
+                <div id="addImage">+</div>
             <input type="file" style="display: none;" id="inputFileImage">
         </div>
         <input type="submit">
@@ -42,6 +45,10 @@
             .then(datos => datos.json())
             .then(respuesta => {
                 console.log(respuesta);
+                let nuevaFoto = document.createElement("img");
+                nuevaFoto.classList.add('imagenMensaje');
+                nuevaFoto.setAttribute("src",'web/images/'+respuesta.nombreArchivo);
+                document.getElementById('fotos2').append(nuevaFoto);
             })
          });
 
