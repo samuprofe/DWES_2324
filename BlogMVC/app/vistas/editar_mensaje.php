@@ -22,17 +22,20 @@
         <input type="submit">
     </form>
     <script type="text/javascript">
-        let botonAddImage = document.getElementById('addImage');
         let idMensaje = document.getElementById('formularioEditar').getAttribute('data-idMensaje');
+        //Para que se abra la ventana de seleccionar archivo al hacer click en el botón
+        let botonAddImage = document.getElementById('addImage');
         botonAddImage.addEventListener('click',function(){
             document.getElementById('inputFileImage').click();
         });
 
+        //Enviamos el archivo por AJAX cuando se modifique el campo input (cuando se seleccione un archivo)
         let inputFileImage = document.getElementById('inputFileImage');
         inputFileImage.addEventListener('change',function(){
             let formData = new FormData();
             let archivoFoto = inputFileImage.files[0];
             formData.append('foto',archivoFoto);
+
             fetch('index.php?accion=addImageMensaje&idMensaje='+idMensaje,{
                 method: 'POST',
                 body: formData
@@ -42,6 +45,9 @@
                 console.log(respuesta);
             })
          });
+
+         //Añadir un manejador de evento para cada foto que al pincharla se borre de la BD y se quite 
+         
     </script>
 </body>
 </html>

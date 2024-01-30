@@ -54,6 +54,9 @@ $mapa = array(
     'addImageMensaje'=>array('controlador'=>'ControladorMensajes', 
                        'metodo'=>'addImageMensaje', 
                        'privada'=>false),
+    'deleteImageMensaje'=>array('controlador'=>'ControladorMensajes', 
+                       'metodo'=>'deleteImageMensaje', 
+                       'privada'=>false),                       
 );
 
 

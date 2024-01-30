@@ -31,14 +31,16 @@
     ?>
     <?php foreach ($mensajes as $mensaje): ?>
         <?php
+        $FavoritosDAO = new FavoritosDAO($conn);
+        $idMensaje = $mensaje->getId();
+        $numFavoritos = $FavoritosDAO->countByIdMensaje($idMensaje);
         if(Sesion::existeSesion()){
             //Compruebo si existe un favorito para este mensaje del usuario conectado
-            $FavoritosDAO = new FavoritosDAO($conn);
             $idUsuario = Sesion::getUsuario()->getId();
-            $idMensaje = $mensaje->getId();
             $existeFavorito = $FavoritosDAO->existByIdUsuarioIdMensaje($idUsuario, $idMensaje);
-            $numFavoritos = $FavoritosDAO->countByIdMensaje($idMensaje);
+            
         }
+        
         //Obtengo las fotos de la BD
         $fotosDAO = new FotosDAO($conn);
         $fotos = $fotosDAO->getAllByIdMensaje($idMensaje);

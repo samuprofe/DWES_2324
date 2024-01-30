@@ -157,4 +157,20 @@ class ControladorMensajes{
         print json_encode(['respuesta'=>'ok', 'nombreArchivo'=> $nombreArchivo]);
 
     }
+
+    function deleteImageMensaje(){
+        $idFoto = htmlentities($_GET['idFoto']);
+        $connexionDB = new ConnexionDB(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        $fotosDAO = new FotosDAO($conn);
+        $foto = new Foto();
+        $foto->setId($idFoto);
+        if($fotosDAO->delete($foto))
+        {
+            print json_encode(['respuesta'=>'ok']);
+        }
+        else{
+            print json_encode(['respuesta'=>'error', 'mensaje'=>'No se ha encontrado la foto']);
+        }
+    }
 }
