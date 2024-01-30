@@ -33,8 +33,7 @@
         let inputFileImage = document.getElementById('inputFileImage');
         inputFileImage.addEventListener('change',function(){
             let formData = new FormData();
-            let archivoFoto = inputFileImage.files[0];
-            formData.append('foto',archivoFoto);
+            formData.append('foto',inputFileImage.files[0]);
 
             fetch('index.php?accion=addImageMensaje&idMensaje='+idMensaje,{
                 method: 'POST',
